@@ -1,0 +1,6 @@
+@AthlocoServer_HostAddress = http://localhost:5211
+
+GET {{AthlocoServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

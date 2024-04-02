@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AthlocoServer.Data;
 using Microsoft.AspNetCore.Mvc;
+using AthlocoServer.Mappers;
 
 namespace AthlocoServer.Controllers
 {
@@ -20,7 +21,8 @@ namespace AthlocoServer.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var tournaments = _context.Tournaments.ToList();
+            var tournaments = _context.Tournaments.ToList()
+            .Select(t => t.toTournamentDto());
 
             return Ok(tournaments);
         }
@@ -34,7 +36,7 @@ namespace AthlocoServer.Controllers
             {
                 return NotFound();
             }
-            return Ok(tournament);
+            return Ok(tournament.toTournamentDto());
         }
 
     

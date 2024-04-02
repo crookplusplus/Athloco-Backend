@@ -4,30 +4,31 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace AthlocoServer.Models
 {
     public enum TournamentType
     {
-        COED,
+        COED, //0
         //Men and Women play together
-        MENS_WOMENS,
+        MENS_WOMENS, //1
         //Men and Women play separately
-        MENS,
-        WOMENS,
-        BLIND_DRAW
+        MENS, //2
+        WOMENS, //3
+        BLIND_DRAW//4
         //coed blind draw
     }
     public enum CostType
     {
-        PER_TEAM,
-        PER_PERSON
+        PER_TEAM, //0
+        PER_PERSON //1
     }
     public enum TournamentStyle
     {
-        FUN,
-        COMPETITIVE,
-        BOTH,
+        FUN, //0
+        COMPETITIVE, //1
+        BOTH,//2
     }
     public class Tournaments
     {
@@ -42,6 +43,7 @@ namespace AthlocoServer.Models
         [Column(TypeName = "decimal(6, 2)")]
         public decimal Cost { get; set; }
         public CostType CostPer { get; set; }
+        public TournamentStyle Style { get; set; }
         [Column(TypeName = "decimal(8, 2)")]
         public decimal Prize { get; set; }
         public string Host { get; set; } = string.Empty;

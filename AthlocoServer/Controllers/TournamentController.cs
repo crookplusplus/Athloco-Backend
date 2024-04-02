@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using AthlocoServer.Data;
 using Microsoft.AspNetCore.Mvc;
 using AthlocoServer.Mappers;
+using AthlocoServer.Models;
+using AthlocoServer.Dtos.Tournaments;
 
 namespace AthlocoServer.Controllers
 {
@@ -39,6 +41,15 @@ namespace AthlocoServer.Controllers
             return Ok(tournament.toTournamentDto());
         }
 
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateTournamentRequestDto tournamentDto)
+        {
+            var tournamentModel = tournamentDto.ToTournamentFromCreateDTO();
+            _context.Tournaments.Add(tournamentModel);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetById), new { id = tournamentModel.Id }, tournamentModel.toTournamentDto());
+        }
     
     }
 }

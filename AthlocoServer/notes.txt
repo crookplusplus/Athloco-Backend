@@ -1,0 +1,7 @@
+Packages add from NuGet Gallery
+
+***All dependecies are found in the .csproj file
+
+-Microsoft.EntityFrameworkCore.SqlServer
+-Microsoft.EntityFrameworkCore.Tools
+-Microsoft.EntityFrameworkCore.Design

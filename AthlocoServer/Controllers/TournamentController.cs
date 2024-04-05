@@ -76,5 +76,25 @@ namespace AthlocoServer.Controllers
             return Ok(tournamentModel.toTournamentDto());
         }
     
+        [HttpDelete]
+        [Route("{id}")]
+
+        public IActionResult Delete([FromRoute] int id){
+
+            var tournamentModel = _context.Tournaments.FirstOrDefault(t => t.Id == id);
+        
+            if (tournamentModel == null)
+            {
+                return NotFound();
+            }
+
+            _context.Tournaments.Remove(tournamentModel);
+
+            _context.SaveChanges();
+
+            return NoContent();
+        }
+
+
     }
 }

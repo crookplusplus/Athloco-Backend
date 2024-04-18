@@ -1,5 +1,7 @@
 using AthlocoServer.Data;
 using Microsoft.EntityFrameworkCore;
+using AthlocoServer.Interfaces;
+using AthlocoServer.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,8 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<ITournamentsRepository, TournamentRepository>();
 
 var app = builder.Build();
 

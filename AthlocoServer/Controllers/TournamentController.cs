@@ -8,6 +8,7 @@ using AthlocoServer.Mappers;
 using AthlocoServer.Models;
 using AthlocoServer.Dtos.Tournaments;
 using Microsoft.EntityFrameworkCore;
+using AthlocoServer.Interfaces;
 
 namespace AthlocoServer.Controllers
 {
@@ -16,15 +17,17 @@ namespace AthlocoServer.Controllers
     public class TournamentController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
-        public TournamentController(ApplicationDBContext context)
+        private readonly ITournamentsRepository _tournamentsRepo;
+        public TournamentController(ApplicationDBContext context, ITournamentsRepository tournamentsRepo)
         {
+            _tournamentsRepo = tournamentsRepo;
             _context = context;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var tournaments = await _context.Tournaments.ToListAsync();
+            var tournaments = await _tournamentsRepo.GetAllAsync();
 
             var tournamentsDto = tournaments.Select(t => t.toTournamentDto());
 

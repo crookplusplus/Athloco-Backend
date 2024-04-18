@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AthlocoServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+52ccd37b4aeb3ae75be73104692c8bc8d349ced4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+18b97721fe42de3c2ee39821ef37cb3a18723aac")]
 [assembly: System.Reflection.AssemblyProductAttribute("AthlocoServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AthlocoServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

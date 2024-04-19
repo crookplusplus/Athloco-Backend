@@ -37,7 +37,7 @@ namespace AthlocoServer.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var tournament = await _context.Tournaments.FindAsync(id);
+            var tournament = await _tournamentsRepo.GetByIdAsync(id);
 
             if (tournament == null)
             {
@@ -51,33 +51,20 @@ namespace AthlocoServer.Controllers
         public async Task<IActionResult> Create([FromBody] CreateTournamentRequestDto tournamentDto)
         {
             var tournamentModel = tournamentDto.ToTournamentFromCreateDTO();
-            await _context.Tournaments.AddAsync(tournamentModel);
-            await _context.SaveChangesAsync();
+            await _tournamentsRepo.CreateAsync(tournamentModel);
             return CreatedAtAction(nameof(GetById), new { id = tournamentModel.Id }, tournamentModel.toTournamentDto());
         }
 
         [HttpPut]
         [Route("{id}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateTournamentRequestDto updateDto){
-            var tournamentModel = await _context.Tournaments.FirstOrDefaultAsync(t => t.Id == id);
+            var tournamentModel = await _tournamentsRepo.UpdateAsync(id, updateDto);
 
             if (tournamentModel == null)
             {
                 return NotFound();
             }
 
-            tournamentModel.Title = updateDto.Title;
-            tournamentModel.Location = updateDto.Location;  
-            tournamentModel.Date = updateDto.Date;
-            tournamentModel.Type = updateDto.Type;
-            tournamentModel.TeamSize = updateDto.TeamSize;
-            tournamentModel.Cost = updateDto.Cost;
-            tournamentModel.CostPer = updateDto.CostPer;
-            tournamentModel.Style = updateDto.Style;
-            tournamentModel.Prize = updateDto.Prize;
-            tournamentModel.Host = updateDto.Host;
-
-            await _context.SaveChangesAsync();
             return Ok(tournamentModel.toTournamentDto());
         }
     
@@ -86,16 +73,12 @@ namespace AthlocoServer.Controllers
 
         public async Task<IActionResult> Delete([FromRoute] int id){
 
-            var tournamentModel = await _context.Tournaments.FirstOrDefaultAsync(t => t.Id == id);
+            var tournamentModel = await _tournamentsRepo.DeleteAsync(id);
         
             if (tournamentModel == null)
             {
                 return NotFound();
             }
-
-            _context.Tournaments.Remove(tournamentModel);
-
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }
